@@ -130,7 +130,7 @@ unit sdcard(
     }
 
     while(1) {
-      uint18  count = 0;  uint18  c1 <:: count + 1;
+      uint18  count = 0;  uint18  c1 = count + 1;
       // wait 2 msec (power up), @50 MHz
       while (count != 100000) { count = c1; }
 
@@ -165,7 +165,7 @@ unit sdcard(
 
       // ready to work
       while (1) {
-        uint10  progress = 0;   uint10  p1 <:: progress + 1;
+        uint10  progress = 0;   uint10  p1 = progress + 1;
 
         if( do_read_sector ) {
           do_read_sector = 0;
