@@ -130,9 +130,9 @@ unit sdcard(
     }
 
     while(1) {
-      uint18  count = 0;  uint18  c1 = count + 1;
+      uint18  count = 0;
       // wait 2 msec (power up), @50 MHz
-      while (count != 100000) { count = c1; }
+      while (count != 100000) { count = count + 1; }
 
       // request SPI mode 74+ clock pulses @~400 kHz (assumes 50 MHz clock)
       while( count != $100000+2*256*80$ ) {
@@ -165,7 +165,7 @@ unit sdcard(
 
       // ready to work
       while (1) {
-        uint10  progress = 0;   uint10  p1 = progress + 1;
+        uint10  progress = 0;
 
         if( do_read_sector ) {
           do_read_sector = 0;
@@ -187,7 +187,7 @@ unit sdcard(
             while( ~&progress[0,9] ) {
               (buffer_read.wdata1) <- read <- ( 8,0,3 );
               buffer_read.addr1 = buffer_read.addr1 + 1;
-              progress = p1;
+              progress = progress + 1;
             }
             ( status ) <- read <- ( 16,1,3 ); // CRC
           }
@@ -214,7 +214,7 @@ unit sdcard(
           while( progress != 512 ) {
             () <- sendbyte <- ( buffer_write.rdata0 );
             buffer_write.addr0 = buffer_write.addr0 + 1;
-            progress = p1;
+            progress = progress + 1;
           }
 
           //send CRC = 0xff 0xff

@@ -73,6 +73,10 @@ $$V_END    = V_FRT_PORCH + V_SYNCH + V_BCK_PORCH + V_RES
 	  }
   }
 
+$$if VERILATOR then
+    __verilog("$c32(\"set_vga_resolution(640,480);\");");
+$$end
+
 }
 
 // -------------------------
